@@ -1,5 +1,5 @@
 export function obtenerDiferenciaYear(year) {
-  return new Date().getFullYear - year;
+  return new Date().getFullYear() - year;
 }
 
 export function calcularMarca(marca) {
@@ -21,4 +21,8 @@ export function calcularMarca(marca) {
 
 export function obtenerPlan(plan) {
   return plan === 'basico' ? 1.2 : 1.5;
+}
+
+export function primerMayuscula(texto) {
+  return texto.charAt(0).toUpperCase() + texto.slice(1);
 }

@@ -84,9 +84,11 @@ const Formulario = ({ guardarResumen }) => {
     guardarError(false);
     let resultado = 2000;
     const diferencia = obtenerDiferenciaYear(year);
+    debugger;
     resultado -= (diferencia * 3 * resultado) / 100;
     resultado = calcularMarca(marca) * resultado;
     resultado = parseFloat(obtenerPlan(plan) * resultado).toFixed(2);
+    console.log(resultado);
     guardarResumen({
       cotizacion: resultado,
       datos
@@ -98,7 +100,7 @@ const Formulario = ({ guardarResumen }) => {
       {error ? <Error>Campos incompletos</Error> : null}
       <Campo>
         <Label>Marca</Label>
-        <Select name="marca" value="value" onChange={obtenerInformacion}>
+        <Select name="marca" value={marca} onChange={obtenerInformacion}>
           <option value="">--Seleccione--</option>
           <option value="americano">Americano</option>
           <option value="europeo">Europeo</option>
@@ -107,7 +109,7 @@ const Formulario = ({ guardarResumen }) => {
       </Campo>
       <Campo>
         <Label>Año</Label>
-        <Select name="year" value="year" onChange={obtenerInformacion}>
+        <Select name="year" value={year} onChange={obtenerInformacion}>
           <option value="">-- Seleccione --</option>
           <option value="2021">2021</option>
           <option value="2020">2020</option>
