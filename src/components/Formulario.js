@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { obtenerDiferenciaYear, calcularMarca, obtenerPlan } from '../helper';
+import PropTypes from 'prop-types';
 
 /* ===========================================
 Inicio Estilos 
@@ -60,7 +61,7 @@ const Error = styled.div`
 FIn Estilos 
 ===========================================*/
 
-const Formulario = ({ guardarResumen }) => {
+const Formulario = ({ guardarResumen, guardarCargando }) => {
   const [datos, guardarDatos] = useState({
     marca: '',
     year: '',
@@ -84,15 +85,18 @@ const Formulario = ({ guardarResumen }) => {
     guardarError(false);
     let resultado = 2000;
     const diferencia = obtenerDiferenciaYear(year);
-    debugger;
     resultado -= (diferencia * 3 * resultado) / 100;
     resultado = calcularMarca(marca) * resultado;
     resultado = parseFloat(obtenerPlan(plan) * resultado).toFixed(2);
     console.log(resultado);
-    guardarResumen({
-      cotizacion: resultado,
-      datos
-    });
+    guardarCargando(true);
+    setTimeout(() => {
+      guardarResumen({
+        cotizacion: +resultado,
+        datos
+      });
+      guardarCargando(false);
+    }, 2000);
   };
 
   return (
@@ -129,7 +133,7 @@ const Formulario = ({ guardarResumen }) => {
           type="radio"
           name="plan"
           value="basico"
-          checked={plan == 'basico'}
+          checked={plan === 'basico'}
           onChange={obtenerInformacion}
         />
         Basico
@@ -137,7 +141,7 @@ const Formulario = ({ guardarResumen }) => {
           type="radio"
           name="plan"
           value="completo"
-          checked={plan == 'completo'}
+          checked={plan === 'completo'}
           onChange={obtenerInformacion}
         />
         Completo
@@ -147,4 +151,8 @@ const Formulario = ({ guardarResumen }) => {
   );
 };
 
+Formulario.propTypes = {
+  guardarResumen: PropTypes.func.isRequired,
+  guardarCargando: PropTypes.func.isRequired
+};
 export default Formulario;

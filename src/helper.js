@@ -14,6 +14,8 @@ export function calcularMarca(marca) {
     case 'asiatico':
       incremento = 1.05;
       break;
+    default:
+      break;
   }
 
   return incremento;
